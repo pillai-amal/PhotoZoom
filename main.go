@@ -51,6 +51,7 @@ func pathHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	r := chi.NewRouter()
 	r.Get("/", pathHandler)
+	r.Get("/contact", contactFunc)
 	fmt.Println("Go to http://localhost:3000/ in your browser")
 	fmt.Println("Server started and is listening to the port 3000")
 	http.ListenAndServe(":3000", r)
