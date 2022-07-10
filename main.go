@@ -24,7 +24,7 @@ func pathHandler(w http.ResponseWriter, r *http.Request) {
 		contactFunc(w, r)
 		break
 	default:
-		fmt.Println("not in list")
+		w.WriteHeader(http.StatusNotFound)
 	}
 }
 
