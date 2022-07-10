@@ -23,6 +23,12 @@ func main() {
 		panic(err)
 	}
 	r.Get("/contact", controllers.StaticHandler(tmpl))
+
+	tmpl, err = views.ParseFS(templates.FS, "faq.gohtml")
+	if err != nil {
+		panic(err)
+	}
+	r.Get("/faq", controllers.FAQHandler(tmpl))
 	fmt.Println("Go to http://localhost:3000/ in your browser")
 	fmt.Println("Server started and is listening to the port 3000")
 	http.ListenAndServe(":3000", r)
