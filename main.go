@@ -5,26 +5,19 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
-	"text/template"
 
 	"github.com/go-chi/chi/v5"
+	"phtozoom.com/m/views"
 )
 
 func excecuteTemplate(w http.ResponseWriter, tmplPath string) {
-	t, err := template.ParseFiles(tmplPath)
+	t, err := views.Parse(tmplPath)
 	if err != nil {
-		log.Printf("%v error was occured on parsing", err)
-		http.Error(w, "the error caused the program to quit", http.StatusInternalServerError)
-		return
+		log.Printf("%v error occured during the parsing", err)
+		http.Error(w, "There was a error parsing the template", http.StatusInternalServerError)
 	}
-	err = t.Execute(w, nil)
-	if err != nil {
-		log.Printf("%v error was occured on template execution", err)
-		http.Error(w, "the error caused the program to quit", http.StatusInternalServerError)
-		return
-	}
+	t.Execute(w, nil)
 }
-
 func homeFunc(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content", "text/html")
 	tmplPath := filepath.Join("templates", "home.gohtml")
