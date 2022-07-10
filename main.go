@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/go-chi/chi/v5"
 )
 
 func handlerFunc(w http.ResponseWriter, r *http.Request) {
@@ -29,7 +31,8 @@ func pathHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	r := chi.NewRouter()
 	fmt.Println("Go to http://localhost:3000/ in your browser")
 	fmt.Println("Server started and is listening to the port 3000")
-	http.ListenAndServe(":3000", http.HandlerFunc(pathHandler))
+	http.ListenAndServe(":3000", r)
 }
