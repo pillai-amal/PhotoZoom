@@ -10,9 +10,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func handlerFunc(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content", "text/html")
-	tmplPath := filepath.Join("templates", "home.gohtml")
+func excecuteTemplate(w http.ResponseWriter, tmplPath string) {
 	t, err := template.ParseFiles(tmplPath)
 	if err != nil {
 		log.Printf("%v error was occured on parsing", err)
@@ -25,29 +23,24 @@ func handlerFunc(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "the error caused the program to quit", http.StatusInternalServerError)
 		return
 	}
+}
+
+func homeFunc(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content", "text/html")
+	tmplPath := filepath.Join("templates", "home.gohtml")
+	excecuteTemplate(w, tmplPath)
 }
 
 func contactFunc(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content", "text/html")
 	tmplPath := filepath.Join("templates", "contact.gohtml")
-	t, err := template.ParseFiles(tmplPath)
-	if err != nil {
-		log.Printf("%v error was occured on parsing", err)
-		http.Error(w, "the error caused the program to quit", http.StatusInternalServerError)
-		return
-	}
-	err = t.Execute(w, nil)
-	if err != nil {
-		log.Printf("%v error was occured on template execution", err)
-		http.Error(w, "the error caused the program to quit", http.StatusInternalServerError)
-		return
-	}
+	excecuteTemplate(w, tmplPath)
 }
 
 func pathHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.URL.Path {
 	case "/":
-		handlerFunc(w, r)
+		homeFunc(w, r)
 	case "/contact":
 		contactFunc(w, r)
 	default:
