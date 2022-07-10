@@ -3,22 +3,22 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"path/filepath"
 
 	"github.com/go-chi/chi/v5"
 	"phtozoom.com/m/controllers"
+	"phtozoom.com/m/templates"
 	"phtozoom.com/m/views"
 )
 
 func main() {
 	r := chi.NewRouter()
-	tmpl, err := views.Parse(filepath.Join("templates", "home.gohtml"))
+	tmpl, err := views.ParseFS(templates.FS, "home.gohtml")
 	if err != nil {
 		panic(err)
 	}
 	r.Get("/", controllers.StaticHandler(tmpl))
 	//
-	tmpl, err = views.Parse(filepath.Join("templates", "contact.gohtml"))
+	tmpl, err = views.ParseFS(templates.FS, "contact.gohtml")
 	if err != nil {
 		panic(err)
 	}

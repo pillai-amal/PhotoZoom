@@ -3,12 +3,13 @@ package views
 import (
 	"fmt"
 	"html/template"
+	"io/fs"
 	"log"
 	"net/http"
 )
 
-func Parse(filepath string) (Template, error) {
-	t, err := template.ParseFiles(filepath)
+func ParseFS(fs fs.FS, pattern string) (Template, error) {
+	t, err := template.ParseFS(fs, pattern)
 	if err != nil {
 		return Template{}, fmt.Errorf("%w Error occoured during parsing", err)
 	}
