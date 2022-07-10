@@ -24,13 +24,12 @@ func pathHandler(w http.ResponseWriter, r *http.Request) {
 		contactFunc(w, r)
 		break
 	default:
-		w.WriteHeader(http.StatusNotFound)
+		http.Error(w, "Looks like you are on to page that does not exsists", http.StatusNotFound)
 	}
 }
 
 func main() {
-	http.HandleFunc("/", pathHandler)
 	fmt.Println("Go to http://localhost:3000/ in your browser")
 	fmt.Println("Server started and is listening to the port 3000")
-	http.ListenAndServe(":3000", nil)
+	http.ListenAndServe(":3000", http.HandlerFunc(pathHandler))
 }
