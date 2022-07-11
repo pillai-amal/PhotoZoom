@@ -30,11 +30,12 @@ func main() {
 	}
 	r.Get("/faq", controllers.FAQHandler(tmpl))
 
-	tmpl, err = views.ParseFS(templates.FS, "signup.gohtml", "tailwind.gohtml")
+	usersC := controllers.Users{}
+	usersC.Templates.New, err = views.ParseFS(templates.FS, "signup.gohtml", "tailwind.gohtml")
 	if err != nil {
 		panic(err)
 	}
-	r.Get("/signup", controllers.StaticHandler(tmpl))
+	r.Get("/signup", usersC.New)
 	fmt.Println("Go to http://localhost:3000/ in your browser")
 	fmt.Println("Server started and is listening to the port 3000")
 	http.ListenAndServe(":3000", r)
