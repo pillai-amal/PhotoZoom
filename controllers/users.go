@@ -2,13 +2,11 @@ package controllers
 
 import (
 	"net/http"
-
-	"phtozoom.com/m/views"
 )
 
 type Users struct {
 	Templates struct {
-		New views.Template
+		New Template
 	}
 }
 

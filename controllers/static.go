@@ -2,17 +2,15 @@ package controllers
 
 import (
 	"net/http"
-
-	"phtozoom.com/m/views"
 )
 
-func StaticHandler(t views.Template) http.HandlerFunc {
+func StaticHandler(t Template) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		t.Execute(w, nil)
 	}
 }
 
-func FAQHandler(t views.Template) http.HandlerFunc {
+func FAQHandler(t Template) http.HandlerFunc {
 	questions := []struct {
 		Question string
 		Answer   string
