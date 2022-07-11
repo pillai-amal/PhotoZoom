@@ -36,6 +36,8 @@ func main() {
 		panic(err)
 	}
 	r.Get("/signup", usersC.New)
+	r.Post("/users", usersC.Create)
+
 	fmt.Println("Go to http://localhost:3000/ in your browser")
 	fmt.Println("Server started and is listening to the port 3000")
 	http.ListenAndServe(":3000", r)
